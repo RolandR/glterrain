@@ -97,6 +97,7 @@ function Renderer(canvasId){
 		gl.vertexAttribPointer(normal, 3, gl.FLOAT, false, 0, 0);
 		gl.enableVertexAttribArray(normal);
 
+		maxDistanceRef = gl.getUniformLocation(shaderProgram, "maxDistance");
 		modelRef = gl.getUniformLocation(shaderProgram, "model");
 		viewRef = gl.getUniformLocation(shaderProgram, "view");
 		perspectiveRef = gl.getUniformLocation(shaderProgram, "perspective");
@@ -126,6 +127,8 @@ function Renderer(canvasId){
 		
 		var normalsMatrix = normalMatrix(model);
 
+		gl.uniform1f(maxDistanceRef, 2.0);
+		
 		gl.uniformMatrix4fv(modelRef, false, model);
 		gl.uniformMatrix4fv(viewRef, false, view);
 		gl.uniformMatrix4fv(perspectiveRef, false, perspective);
