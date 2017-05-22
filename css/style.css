@@ -1,0 +1,110 @@
+
+
+*{
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body, html{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: sans;
+}
+
+body{
+	background-color: #222222;
+}
+
+canvas{
+	height: 100%;
+	background-color: #000000;
+}
+
+hr{
+	border-bottom: 1px #AAAAAA solid;
+	margin: 3px 0px;
+}
+
+input[type=range]{
+	width: 100%;
+	background: #888888;
+	height: 4px;
+	margin: 10px 0px;
+	-webkit-appearance: none;
+}
+
+#canvasContainer{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	text-align: center;
+}
+
+h2{
+	font-size: 18px;
+	font-weight: normal;
+	color: #CCCCCC;
+	line-height: 1em;
+	position: relative;
+	top: 0px;
+	background-color: #222222;
+	display: inline-block;
+	width: auto;
+	padding: 0px 5px;
+}
+
+button{
+	background-image: linear-gradient(to bottom, #EEEEEE, #CCCCCC);
+	border-radius: 3px;
+	border: 1px #666666 solid;
+	padding: 1px;
+	cursor: pointer;
+}
+
+button:hover{
+	background-image: linear-gradient(to bottom, #FFFFFF, #EEEEEE);
+}
+
+button img{
+	height: 100%;
+	width: 100%;
+}
+
+button[disabled]{
+	cursor: default;
+}
+
+button[disabled] img{
+	opacity: 0.3;
+}
+
+button[disabled]:hover{
+	background-image: linear-gradient(to bottom, #EEEEEE, #CCCCCC);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
