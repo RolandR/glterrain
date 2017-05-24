@@ -25,10 +25,17 @@ function init(){
 				 x: (x/size)*2-1
 				,y: (y/size)*2-1
 				,z: getNoise(x, y, size)*0.2
+				,erosion: 0
+				,sediment: 0
+				,water: 1
+				,newWater: 0
+				,down: 0
 			}
 			
 		}
 	}
+
+	points = erode(points, size);
 
 	var vertices = buildMeshFromPoints(points, size);
 
@@ -37,6 +44,75 @@ function init(){
 	console.log(vertices.length, normals.length);
 
 	renderer.addVertices(vertices, normals);
+	
+}
+
+function erode(points, size){
+
+	var erosion = 0.0005;
+	var deposition = 0.0000002;
+	var evaporation = 0.9;
+	var iterations = 300;
+	var steepness;
+	var down;
+	var water;
+	var stayingWater;
+
+	for(var i = 0; i < iterations; i++){
+		for(var x = 1; x < size-2; x++){
+			for(var y = 1; y < size-2; y++){
+
+				down = 0;
+				
+				down += Math.max(points[x][y].z - points[x+1][y].z, 0);
+				down += Math.max(points[x][y].z - points[x+1][y+1].z, 0);
+				down += Math.max(points[x][y].z - points[x+1][y-1].z, 0);
+				down += Math.max(points[x][y].z - points[x][y+1].z, 0);
+				down += Math.max(points[x][y].z - points[x][y-1].z, 0);
+				down += Math.max(points[x][y].z - points[x-1][y].z, 0);
+				down += Math.max(points[x][y].z - points[x-1][y+1].z, 0);
+				down += Math.max(points[x][y].z - points[x-1][y-1].z, 0);
+
+				points[x][y].down = down;
+
+				if(down != 0){
+					water = points[x][y].water * evaporation;
+					stayingWater = (water*0.0002)/(down+1);
+					water = water - stayingWater;
+
+					points[x+1][y].newWater += (Math.max(points[x][y].z - points[x+1][y].z, 0)/down) * water;
+					points[x+1][y+1].newWater += (Math.max(points[x][y].z - points[x+1][y+1].z, 0)/down) * water;
+					points[x+1][y-1].newWater += (Math.max(points[x][y].z - points[x+1][y-1].z, 0)/down) * water;
+					points[x][y+1].newWater += (Math.max(points[x][y].z - points[x][y+1].z, 0)/down) * water;
+					points[x][y-1].newWater += (Math.max(points[x][y].z - points[x][y-1].z, 0)/down) * water;
+					points[x-1][y].newWater += (Math.max(points[x][y].z - points[x-1][y].z, 0)/down) * water;
+					points[x-1][y+1].newWater += (Math.max(points[x][y].z - points[x-1][y+1].z, 0)/down) * water;
+					points[x-1][y-1].newWater += (Math.max(points[x][y].z - points[x-1][y-1].z, 0)/down) * water;
+
+					points[x][y].water = 1 + stayingWater;
+				}		
+			}
+		}
+
+		for(var x = 1; x < size-2; x++){
+			for(var y = 1; y < size-2; y++){
+				points[x][y].water += points[x][y].newWater;
+				points[x][y].newWater = 0;
+
+				var oldZ = points[x][y].z;
+				points[x][y].z += (-(points[x][y].down-0.005)*points[x][y].water) * erosion + points[x][y].water * deposition;
+				points[x][y].erosion = oldZ - points[x][y].z;
+			}
+		}
+	}
+
+	for(var x = 0; x < size-1; x++){
+		for(var y = 0; y < size-1; y++){
+			points[x][y].z -= 0.2;
+		}
+	}
+
+	return points;
 	
 }
 
@@ -52,11 +128,11 @@ function getNoise(x, y, res){
 	res /= 2;
 	lightness += (noise.simplex2(x/res, y/res))*0.06;
 	res /= 2;
-	lightness += (noise.simplex2(x/res, y/res))*0.03;
+	//lightness += (noise.simplex2(x/res, y/res))*0.03;
 	res /= 2;
 	lightness += (noise.simplex2(x/res, y/res))*0.015;
 	res /= 2;
-	lightness += (noise.simplex2(x/res, y/res))*0.008;
+	//lightness += (noise.simplex2(x/res, y/res))*0.008;
 
 	return lightness;
 }

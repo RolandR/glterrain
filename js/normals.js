@@ -17,68 +17,74 @@ function calculateNormals(v, points, size){
 		
 	}
 
-	var nx, ny, nz;
+	var smooth = true;
 
-	for(var x = 1; x < points.length; x++){
-		for(var y = 1; y < points.length; y++){
+	if(smooth){
 
-			nx = 0;
-			ny = 0;
-			nz = 0;
+		var nx, ny, nz;
 
-			nx += normals[((x)*size+(y))*18+0 ];
-			nz += normals[((x)*size+(y))*18+1 ];
-			ny += normals[((x)*size+(y))*18+2 ];
-			
-			nx += normals[((x-1)*size+(y))*18+3 ];
-			nz += normals[((x-1)*size+(y))*18+4 ];
-			ny += normals[((x-1)*size+(y))*18+5 ];
-			
-			nx += normals[((x)*size+(y-1))*18+6 ];
-			nz += normals[((x)*size+(y-1))*18+7 ];
-			ny += normals[((x)*size+(y-1))*18+8 ];
-			
+		for(var x = 1; x < points.length; x++){
+			for(var y = 1; y < points.length; y++){
 
-			nx += normals[((x-1)*size+(y))*18+9 ];
-			nz += normals[((x-1)*size+(y))*18+10];
-			ny += normals[((x-1)*size+(y))*18+11];
-			
-			nx += normals[((x-1)*size+(y-1))*18+12];
-			nz += normals[((x-1)*size+(y-1))*18+13];
-			ny += normals[((x-1)*size+(y-1))*18+14];
-			
-			nx += normals[((x)*size+(y-1))*18+15];
-			nz += normals[((x)*size+(y-1))*18+16];
-			ny += normals[((x)*size+(y-1))*18+17];
+				nx = 0;
+				ny = 0;
+				nz = 0;
 
-			
+				nx += normals[((x)*size+(y))*18+0 ];
+				nz += normals[((x)*size+(y))*18+1 ];
+				ny += normals[((x)*size+(y))*18+2 ];
+				
+				nx += normals[((x-1)*size+(y))*18+3 ];
+				nz += normals[((x-1)*size+(y))*18+4 ];
+				ny += normals[((x-1)*size+(y))*18+5 ];
+				
+				nx += normals[((x)*size+(y-1))*18+6 ];
+				nz += normals[((x)*size+(y-1))*18+7 ];
+				ny += normals[((x)*size+(y-1))*18+8 ];
+				
 
-			normals[((x)*size+(y))*18+0 ] = nx;
-			normals[((x)*size+(y))*18+1 ] = nz;
-			normals[((x)*size+(y))*18+2 ] = ny;
-			
-			normals[((x-1)*size+(y))*18+3 ] = nx;
-			normals[((x-1)*size+(y))*18+4 ] = nz;
-			normals[((x-1)*size+(y))*18+5 ] = ny;
-			
-			normals[((x)*size+(y-1))*18+6 ] = nx;
-			normals[((x)*size+(y-1))*18+7 ] = nz;
-			normals[((x)*size+(y-1))*18+8 ] = ny;
-			
+				nx += normals[((x-1)*size+(y))*18+9 ];
+				nz += normals[((x-1)*size+(y))*18+10];
+				ny += normals[((x-1)*size+(y))*18+11];
+				
+				nx += normals[((x-1)*size+(y-1))*18+12];
+				nz += normals[((x-1)*size+(y-1))*18+13];
+				ny += normals[((x-1)*size+(y-1))*18+14];
+				
+				nx += normals[((x)*size+(y-1))*18+15];
+				nz += normals[((x)*size+(y-1))*18+16];
+				ny += normals[((x)*size+(y-1))*18+17];
 
-			normals[((x-1)*size+(y))*18+9 ] = nx;
-			normals[((x-1)*size+(y))*18+10] = nz;
-			normals[((x-1)*size+(y))*18+11] = ny;
-			
-			normals[((x-1)*size+(y-1))*18+12] = nx;
-			normals[((x-1)*size+(y-1))*18+13] = nz;
-			normals[((x-1)*size+(y-1))*18+14] = ny;
-			
-			normals[((x)*size+(y-1))*18+15] = nx;
-			normals[((x)*size+(y-1))*18+16] = nz;
-			normals[((x)*size+(y-1))*18+17] = ny;
-			
+				
+
+				normals[((x)*size+(y))*18+0 ] = nx;
+				normals[((x)*size+(y))*18+1 ] = nz;
+				normals[((x)*size+(y))*18+2 ] = ny;
+				
+				normals[((x-1)*size+(y))*18+3 ] = nx;
+				normals[((x-1)*size+(y))*18+4 ] = nz;
+				normals[((x-1)*size+(y))*18+5 ] = ny;
+				
+				normals[((x)*size+(y-1))*18+6 ] = nx;
+				normals[((x)*size+(y-1))*18+7 ] = nz;
+				normals[((x)*size+(y-1))*18+8 ] = ny;
+				
+
+				normals[((x-1)*size+(y))*18+9 ] = nx;
+				normals[((x-1)*size+(y))*18+10] = nz;
+				normals[((x-1)*size+(y))*18+11] = ny;
+				
+				normals[((x-1)*size+(y-1))*18+12] = nx;
+				normals[((x-1)*size+(y-1))*18+13] = nz;
+				normals[((x-1)*size+(y-1))*18+14] = ny;
+				
+				normals[((x)*size+(y-1))*18+15] = nx;
+				normals[((x)*size+(y-1))*18+16] = nz;
+				normals[((x)*size+(y-1))*18+17] = ny;
+				
+			}
 		}
+
 	}
 
 	return normals;
