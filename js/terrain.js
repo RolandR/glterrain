@@ -24,7 +24,7 @@ function init(){
 			points[x][y] = {
 				 x: (x/size)*2-1
 				,y: (y/size)*2-1
-				,z: getNoise(x, y)*0.2
+				,z: getNoise(x, y, size)*0.2
 			}
 			
 		}
@@ -32,7 +32,7 @@ function init(){
 
 	var vertices = buildMeshFromPoints(points, size);
 
-	var normals = calculateNormals(vertices);
+	var normals = calculateNormals(vertices, points, size);
 
 	console.log(vertices.length, normals.length);
 
@@ -40,8 +40,7 @@ function init(){
 	
 }
 
-function getNoise(x, y){
-	var res = 512;
+function getNoise(x, y, res){
 	
 	var lightness = (noise.simplex2(x/res, y/res));
 	res /= 2;

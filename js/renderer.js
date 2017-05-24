@@ -127,7 +127,7 @@ function Renderer(canvasId){
 		
 		var normalsMatrix = normalMatrix(model);
 
-		gl.uniform1f(maxDistanceRef, 2.0);
+		gl.uniform1f(maxDistanceRef, 3.0);
 		
 		gl.uniformMatrix4fv(modelRef, false, model);
 		gl.uniformMatrix4fv(viewRef, false, view);

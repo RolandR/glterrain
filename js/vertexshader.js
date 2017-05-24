@@ -29,8 +29,8 @@ void main(void){
 	vec4 coords = vec4(coordinates, 1.0);
 
 	coords = perspective * view * model * coords;
-
-	fogness = coords.z/maxDistance;
+	
+	fogness = clamp(length(coords)/maxDistance, 0.0, 1.0);
 
 	gl_Position = coords;
 }
