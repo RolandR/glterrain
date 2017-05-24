@@ -106,8 +106,8 @@ function erode(points, size){
 		}
 	}
 
-	for(var x = 0; x < size-1; x++){
-		for(var y = 0; y < size-1; y++){
+	for(var x = 0; x < size; x++){
+		for(var y = 0; y < size; y++){
 			points[x][y].z -= 0.2;
 		}
 	}

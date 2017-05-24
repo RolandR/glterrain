@@ -12,7 +12,7 @@ function Controls(){
 	var startX = 0;
 	var startY = 0;
 
-	var fieldOfViewInRadians = 31/180*Math.PI;
+	var fieldOfViewInRadians = 40/180*Math.PI;
 	var aspectRatio = canvas.width/canvas.height;
 	var near = 0.001;
 	var far = 2;
