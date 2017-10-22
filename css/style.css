@@ -11,7 +11,7 @@ body, html{
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	font-family: sans;
+	font-family: sans-serif;
 }
 
 body{
@@ -85,6 +85,13 @@ button[disabled] img{
 
 button[disabled]:hover{
 	background-image: linear-gradient(to bottom, #EEEEEE, #CCCCCC);
+}
+
+#hangOn{
+	position: absolute;
+	z-index: 10000;
+	font-size: 30px;
+	padding: 30px;
 }
 
 

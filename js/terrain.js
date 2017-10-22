@@ -6,7 +6,7 @@ canvas.height = document.getElementById("canvasContainer").clientHeight;
 
 var renderer = new Renderer("renderCanvas");
 
-init();
+setTimeout(init, 10);
 
 function init(){
 
@@ -25,6 +25,7 @@ function init(){
 				 x: (x/size)*2-1
 				,y: (y/size)*2-1
 				,z: getNoise(x, y, size)*0.2
+				//,z: Math.round((y-40)/size)*0.5-0.5 + Math.random()*0.005
 				,erosion: 0
 				,sediment: 0
 				,water: 1
@@ -44,13 +45,19 @@ function init(){
 	console.log(vertices.length, normals.length);
 
 	renderer.addVertices(vertices, normals);
+
+	var controls = new Controls();
+
+	document.getElementById("hangOn").style.display = "none";
 	
 }
 
 function erode(points, size){
 
-	var erosion = 0.0005;
-	var deposition = 0.0000002;
+	var scale = size/512;
+
+	var erosion = 0.0005*scale;
+	var deposition = 0.0000002*scale;
 	var evaporation = 0.9;
 	var iterations = 300;
 	var steepness;
@@ -77,7 +84,7 @@ function erode(points, size){
 
 				if(down != 0){
 					water = points[x][y].water * evaporation;
-					stayingWater = (water*0.0002)/(down+1);
+					stayingWater = (water*0.0002)/(down*scale+1);
 					water = water - stayingWater;
 
 					points[x+1][y].newWater += (Math.max(points[x][y].z - points[x+1][y].z, 0)/down) * water;
@@ -100,8 +107,12 @@ function erode(points, size){
 				points[x][y].newWater = 0;
 
 				var oldZ = points[x][y].z;
-				points[x][y].z += (-(points[x][y].down-0.005)*points[x][y].water) * erosion + points[x][y].water * deposition;
+				points[x][y].z += (-(points[x][y].down-0.005/scale)*points[x][y].water) * erosion + points[x][y].water * deposition;
 				points[x][y].erosion = oldZ - points[x][y].z;
+
+				if(oldZ < points[x][y].z){
+					points[x][y].water = Math.max(points[x][y].water - (points[x][y].z - oldZ)*1000, 0);
+				}
 			}
 		}
 	}

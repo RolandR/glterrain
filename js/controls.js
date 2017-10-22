@@ -1,5 +1,3 @@
-var controls = new Controls();
-
 function Controls(){
 
 	var position = [0, 0, 0];
